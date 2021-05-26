@@ -15,15 +15,22 @@ interface User {
 })
 export class AppComponent implements OnInit {
   name = 'Angular ' + VERSION.major;
-  url = 'https://mocki.io/v1/d9df7a23-63e6-4bb0-861a-ff9a1cb2172c';
+  //url = 'https://mocki.io/v1/d9df7a23-63e6-4bb0-861a-ff9a1cb2172c';
+  url = 'blah';
   user: User;
+  errorMsg: string;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<User>(this.url).subscribe(data => {
-      console.log(data);
-      this.user = data;
-    });
+    this.http.get<User>(this.url).subscribe(
+      data => {
+        console.log(data);
+        this.user = data;
+      },
+      error => {
+        this.errorMsg = error.message;
+      }
+    );
   }
 }
