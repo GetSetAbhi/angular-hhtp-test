@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, VERSION } from '@angular/core';
 /***
- * Fake API created at
+ * Fake API created at https://mocki.io/fake-json-api
  *
  * **/
 interface User {
