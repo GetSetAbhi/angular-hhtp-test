@@ -1,0 +1,9 @@
+<hr />
+<p>Using async pipe directive on observable</p>
+<ng-container *ngIf="this.students$">
+  <ul>
+    <li *ngFor="let student of this.students$ | async">
+      {{ student.name }}
+    </li>
+  </ul>
+</ng-container>
