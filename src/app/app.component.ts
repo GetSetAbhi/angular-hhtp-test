@@ -42,15 +42,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Create observer object
     let myObserver = {
-      next: (x: any) => {
+      next: (students: Student[]) => {
         console.log('Observer got a next value: ');
-        console.log(x);
+        students.map((student: Student) => {
+          if (student.current) {
+            this.userService.setCurrentStudent(student);
+          }
+        });
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
       complete: () => console.log('Observer got a complete notification'),
     };
-
     this.subscription = myObservable.subscribe(myObserver);
+  }
+
+  onShowCurrentUser(event) {
+    console.log(event);
+    let currentStudent = this.userService.getCurrentStudent();
+    if (!currentStudent) {
+      console.log('Current Student is empty');
+    } else {
+      console.log(currentStudent);
+    }
   }
 
   ngOnDestroy(): void {

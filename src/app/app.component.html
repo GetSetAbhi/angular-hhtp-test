@@ -1,6 +1,13 @@
 <hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
-<p *ngIf="this.user">{{this.user.name}}</p>
-<p *ngIf="this.errorMsg" class="error">{{this.errorMsg}}</p>
+<p>Start editing to see some magic happen :)</p>
+<p *ngIf="this.user">{{ this.user.name }}</p>
+<p *ngIf="this.errorMsg" class="error">{{ this.errorMsg }}</p>
+
+<label for="name">Check Current User</label>
+<input
+  id="user"
+  name="user"
+  type="button"
+  value="Click to check Current User"
+  (click)="onShowCurrentUser($event)"
+/>

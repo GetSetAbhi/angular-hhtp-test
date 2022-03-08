@@ -4,4 +4,5 @@ export interface Student {
   enrollmentnumber: number;
   college: string;
   university: string;
+  current?: boolean;
 }
