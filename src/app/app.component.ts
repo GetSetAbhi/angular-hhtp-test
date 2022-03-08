@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, VERSION } from '@angular/core';
+import { Component, OnDestroy, OnInit, VERSION } from '@angular/core';
 import { Student } from './student';
 import { UserService } from './user.service';
 /***
@@ -15,12 +15,14 @@ interface User {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   name = 'Angular ' + VERSION.major;
   //url = 'https://mocki.io/v1/d9df7a23-63e6-4bb0-861a-ff9a1cb2172c';
   url = 'blah';
   user: User;
   errorMsg: string;
+
+  subscription;
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -48,6 +50,12 @@ export class AppComponent implements OnInit {
       complete: () => console.log('Observer got a complete notification'),
     };
 
-    myObservable.subscribe(myObserver);
+    this.subscription = myObservable.subscribe(myObserver);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
