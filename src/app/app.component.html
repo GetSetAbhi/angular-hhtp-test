@@ -11,3 +11,18 @@
   value="Click to check Current User"
   (click)="onShowCurrentUser($event)"
 />
+<hr />
+<p *ngIf="this.currentStudent">
+  Current Student is : {{ this.currentStudent.name }}
+</p>
+<hr />
+<ng-container *ngIf="this.studentList">
+  <ul>
+    <li
+      *ngFor="let student of this.studentList"
+      (click)="setCurrentUser(student)"
+    >
+      {{ student.name }}
+    </li>
+  </ul>
+</ng-container>

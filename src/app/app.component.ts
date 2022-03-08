@@ -22,7 +22,11 @@ export class AppComponent implements OnInit, OnDestroy {
   user: User;
   errorMsg: string;
 
-  subscription;
+  subscription = null;
+
+  currentStudent: Student;
+
+  studentList: Student[];
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -44,6 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     let myObserver = {
       next: (students: Student[]) => {
         console.log('Observer got a next value: ');
+        this.studentList = students;
         students.map((student: Student) => {
           if (student.current) {
             this.userService.setCurrentStudent(student);
@@ -56,14 +61,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = myObservable.subscribe(myObserver);
   }
 
-  onShowCurrentUser(event) {
+  onShowCurrentUser(event): void {
     console.log(event);
-    let currentStudent = this.userService.getCurrentStudent();
-    if (!currentStudent) {
+    this.currentStudent = this.userService.getCurrentStudent();
+    if (!this.currentStudent) {
       console.log('Current Student is empty');
     } else {
-      console.log(currentStudent);
+      console.log(this.currentStudent);
     }
+  }
+
+  setCurrentUser(student): void {
+    this.userService.setCurrentStudent(student);
+    this.currentStudent = student;
   }
 
   ngOnDestroy(): void {
